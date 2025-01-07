@@ -25,7 +25,7 @@ use crate::{AnalyzerPlugin, PluginDiagnostic};
 #[derive(Clone, Debug)]
 pub struct AnalyzerGritPlugin {
     grit_query: Rc<GritQuery>,
-}
+ }
 
 impl AnalyzerGritPlugin {
     pub fn load(fs: &dyn FileSystem, path: &Path) -> Result<Self, PluginDiagnostic> {
@@ -70,6 +70,7 @@ impl AnalyzerPlugin for AnalyzerGritPlugin {
                     .verbose()
                 })
                 .chain(result.diagnostics)
+                .map(|diagnos| diagnos.subcategory(name.to_string()))
                 .collect(),
             Err(error) => vec![RuleDiagnostic::new(
                 category!("plugin"),

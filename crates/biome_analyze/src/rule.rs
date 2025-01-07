@@ -1229,6 +1229,7 @@ pub trait Rule: RuleMeta + Sized {
 pub struct RuleDiagnostic {
     #[category]
     pub(crate) category: &'static Category,
+    pub(crate) subcategory: Option<String>,
     #[location(span)]
     pub(crate) span: Option<TextRange>,
     #[message]
@@ -1307,6 +1308,7 @@ impl RuleDiagnostic {
         let message = markup!({ title }).to_owned();
         Self {
             category,
+            subcategory: None,
             span: span.as_span(),
             message: MessageAndDescription::from(message),
             tags: DiagnosticTags::empty(),
@@ -1405,6 +1407,11 @@ impl RuleDiagnostic {
 
     pub fn advices(&self) -> &RuleAdvice {
         &self.rule_advice
+    }
+
+    pub fn subcategory(mut self, subcategory: String) -> Self {
+        self.subcategory = Some(subcategory);
+        self
     }
 }
 

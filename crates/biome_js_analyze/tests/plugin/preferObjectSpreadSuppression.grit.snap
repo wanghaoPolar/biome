@@ -1,0 +1,12 @@
+---
+source: crates/biome_js_analyze/tests/spec_tests.rs
+assertion_line: 344
+expression: preferObjectSpreadSuppression.grit
+snapshot_kind: text
+---
+# Input
+```js
+// biome-ignore plugin/preferObjectSpreadSuppression: reason
+Object.assign({ foo: 'bar'}, baz);
+
+```
